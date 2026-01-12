@@ -1,0 +1,5 @@
+{
+  "name": "The Forensic Linkage Explorer",
+  "description": "An interactive knowledge graph and document exploration system for interconnected musical, theoretical, and narrative works. Featuring a D3-powered web visualization and seamless 'drop' transitions between concepts.",
+  "requestFramePermissions": []
+}
