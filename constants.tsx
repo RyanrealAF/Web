@@ -10,10 +10,11 @@ import { VAULT } from './vault';
  *    - 'defines': Structural, high strength (0.9). 
  *    - 'depicts': Narrative example of theory (0.7-0.8).
  *    - 'influences': Temporal or emotional cause/effect (0.6).
- *    - 'contradicts': Ideological friction (0.4-0.5).
+ *    - 'contradicts': Ideological friction or defensive maneuvers (0.4-0.5).
  * 3. INGESTION PROTOCOL: Use VAULT for rapid data entry. The engine slugs titles into safe IDs.
  * 4. INTERACTION DESIGN: Concept links in document text MUST trigger the "Zoom to Web" phase. 
  *    The app uses this to force the user to visualize the connection before entering the next node.
+ * 5. STYLISTIC MANTRA: "Forensic, Brutalist, Authentic." Use high-contrast themes and precise terminology.
  */
 
 const conceptLink = (id: string, text: string) => 
@@ -276,12 +277,14 @@ const CORE_LINKS: Edge[] = [
     { source: "asymmetric-threat-model", target: "soft-probe", type: "defines", strength: 0.7 },
     { source: "asymmetric-threat-model", target: "social-test-narrative", type: "conceptual", strength: 0.6 },
     { source: "asymmetric-threat-model", target: "still-here", type: "influences", strength: 0.4 },
+    { source: "asymmetric-threat-model", target: "inner-game", type: "influences", strength: 0.5 },
     { source: "jess-forensic-analysis", target: "the-smear", type: "depicts", strength: 0.8 },
     { source: "jess-forensic-analysis", target: "inner-game", type: "conceptual", strength: 0.8 },
     { source: "jess-forensic-analysis", target: "lacey-relationship", type: "conceptual", strength: 0.7 },
     { source: "jess-forensic-analysis", target: "asymmetric-threat-model", type: "depicts", strength: 0.9 },
     { source: "jess-forensic-analysis", target: "authenticity-manifesto", type: "contradicts", strength: 0.6 },
     { source: "jess-forensic-analysis", target: "prison-experience", type: "influences", strength: 0.5 },
+    { source: "jess-forensic-analysis", target: "civilian-weaponization-doc", type: "depicts", strength: 0.7 },
     { source: "lacey-relationship", target: "prison-experience", type: "conceptual", strength: 0.6 },
     { source: "lacey-relationship", target: "authenticity-manifesto", type: "conceptual", strength: 0.8 },
     { source: "lacey-relationship", target: "inner-game", type: "influences", strength: 0.7 },
@@ -308,12 +311,14 @@ const CORE_LINKS: Edge[] = [
     { source: "authenticity-manifesto", target: "still-here", type: "conceptual", strength: 0.9 },
     { source: "authenticity-manifesto", target: "social-test-narrative", type: "contradicts", strength: 0.5 },
     { source: "authenticity-manifesto", target: "psych-warfare-manual", type: "contradicts", strength: 0.7 },
+    { source: "authenticity-manifesto", target: "prison-experience", type: "influences", strength: 0.6 },
     { source: "still-here", target: "lacey-relationship", type: "depicts", strength: 0.5 },
     { source: "still-here", target: "authenticity-manifesto", type: "conceptual", strength: 0.85 },
     { source: "still-here", target: "prison-experience", type: "depicts", strength: 0.6 },
     { source: "soft-probe", target: "the-smear", type: "conceptual", strength: 0.55 },
     { source: "soft-probe", target: "asymmetric-threat-model", type: "conceptual", strength: 0.6 },
-    { source: "soft-probe", target: "inner-game", type: "conceptual", strength: 0.7 }
+    { source: "soft-probe", target: "inner-game", type: "conceptual", strength: 0.7 },
+    { source: "soft-probe", target: "jess-forensic-analysis", type: "depicts", strength: 0.5 }
 ];
 
 /**
