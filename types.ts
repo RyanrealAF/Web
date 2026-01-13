@@ -1,5 +1,5 @@
 
-export type NodeType = 'song' | 'theory' | 'narrative' | 'framework' | 'collaboration';
+export type NodeType = 'song' | 'theory' | 'narrative' | 'technique' | 'era';
 
 export interface Concept {
   id: string;
@@ -21,7 +21,7 @@ export interface Node {
 export interface Edge {
   source: string;
   target: string;
-  type: 'implements' | 'references' | 'themes' | 'conceptual';
+  type: 'influences' | 'defines' | 'depicts' | 'conceptual';
   strength: number;
 }
 

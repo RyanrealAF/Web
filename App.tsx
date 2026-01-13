@@ -1,30 +1,32 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Share2, FileText, ChevronLeft, Map, Search, Filter, Book, Info } from 'lucide-react';
+import { Share2, FileText, ChevronLeft, Map, Search, Filter, Book, Info, Play, Music, PenTool, Type, Activity } from 'lucide-react';
 import GraphVisualization from './components/GraphVisualization';
 import { INITIAL_GRAPH, COLORS } from './constants';
-import { Node, NodeType, HistoryItem, Concept } from './types';
+import { Node, NodeType, HistoryItem, Concept, GraphData } from './types';
 
 const App: React.FC = () => {
-  const [activeNodeId, setActiveNodeId] = useState<string>("gaslighters-delight");
+  const [graphData] = useState<GraphData>(INITIAL_GRAPH);
+  const [activeNodeId, setActiveNodeId] = useState<string>("psych-warfare-manual");
   const [showGraph, setShowGraph] = useState<boolean>(false);
   const [hoveredNode, setHoveredNode] = useState<Node | null>(null);
   const [history, setHistory] = useState<HistoryItem[]>([
-    { nodeId: "gaslighters-delight", title: "Gaslighter's Delight" }
+    { nodeId: "psych-warfare-manual", title: "Psychological Warfare Manual" }
   ]);
   const [activeConcept, setActiveConcept] = useState<Concept | null>(null);
   const [conceptPosition, setConceptPosition] = useState<{ x: number, y: number } | null>(null);
 
   const activeNode = useMemo(() => 
-    INITIAL_GRAPH.nodes.find(n => n.id === activeNodeId) || INITIAL_GRAPH.nodes[0]
-  , [activeNodeId]);
+    graphData.nodes.find(n => n.id === activeNodeId) || graphData.nodes[0]
+  , [activeNodeId, graphData]);
 
   const handleNodeClick = (nodeId: string) => {
     setActiveNodeId(nodeId);
     setShowGraph(false);
     setHistory(prev => {
-      if (prev[prev.length - 1].nodeId === nodeId) return prev;
-      return [...prev, { nodeId, title: INITIAL_GRAPH.nodes.find(n => n.id === nodeId)?.title || nodeId }];
+      if (prev.length > 0 && prev[prev.length - 1].nodeId === nodeId) return prev;
+      const node = graphData.nodes.find(n => n.id === nodeId);
+      return [...prev, { nodeId, title: node?.title || nodeId }];
     });
   };
 
@@ -40,7 +42,6 @@ const App: React.FC = () => {
     }
   };
 
-  // Logic for the concept hover popups
   const handleConceptHover = (e: React.MouseEvent, conceptId: string) => {
     const concept = activeNode.concepts?.find(c => c.id === conceptId);
     if (concept) {
@@ -52,38 +53,37 @@ const App: React.FC = () => {
   const handleConceptClick = (conceptId: string) => {
     setActiveConcept(null);
     setShowGraph(true);
-    // Ideally center graph on this concept's connections
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden flex flex-col bg-[#0a0a0a]">
-      {/* PERSISTENT HEADER / NAVIGATION */}
-      <nav className="z-50 flex items-center justify-between px-6 py-4 bg-black/40 backdrop-blur-md border-b border-white/10 shrink-0">
-        <div className="flex items-center gap-4">
+    <div className="relative w-screen h-screen overflow-hidden flex flex-col bg-[#080808]">
+      {/* PERSISTENT HEADER */}
+      <nav className="z-50 flex items-center justify-between px-8 py-5 bg-black/60 backdrop-blur-xl border-b border-white/5 shrink-0">
+        <div className="flex items-center gap-6">
           <button 
             onClick={handleBack}
             disabled={history.length <= 1}
-            className="p-2 hover:bg-white/10 rounded-full transition-colors disabled:opacity-30"
+            className="p-2.5 hover:bg-white/10 rounded-full transition-all disabled:opacity-20 border border-transparent hover:border-white/10"
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={22} className="text-white" />
           </button>
           <div className="flex flex-col">
-            <span className="text-[10px] uppercase tracking-widest text-white/40 font-bold">Document Title</span>
-            <span className="text-lg font-serif font-bold text-white tracking-tight">{activeNode.title}</span>
+            <span className="text-[10px] uppercase tracking-[0.3em] text-amber-500 font-bold mb-0.5 animate-pulse">Forensic Linkage</span>
+            <span className="text-xl font-stencil text-white tracking-wide">{activeNode.title}</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <button 
             onClick={toggleGraph}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-500 ${
+            className={`flex items-center gap-3 px-6 py-2.5 rounded-full border transition-all duration-700 group ${
               showGraph 
-              ? 'bg-amber-600 border-amber-400 text-white shadow-lg shadow-amber-900/20' 
-              : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10'
+              ? 'bg-amber-600 border-amber-400 text-white shadow-[0_0_30px_rgba(217,119,6,0.3)]' 
+              : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:border-white/20'
             }`}
           >
-            <Share2 size={16} />
-            <span className="text-sm font-medium">{showGraph ? 'Close Web' : 'Explore Web'}</span>
+            <Share2 size={18} className={showGraph ? 'animate-spin-slow' : ''} />
+            <span className="text-sm font-bold uppercase tracking-wider">{showGraph ? 'Close Web' : 'Explore Web'}</span>
           </button>
         </div>
       </nav>
@@ -92,26 +92,29 @@ const App: React.FC = () => {
       <main className="relative flex-1 overflow-hidden">
         
         {/* DOCUMENT VIEW */}
-        <div className={`absolute inset-0 transition-all duration-700 ease-in-out transform flex flex-col items-center overflow-y-auto px-6 py-12 ${showGraph ? 'scale-95 opacity-20 blur-sm pointer-events-none translate-y-10' : 'scale-100 opacity-100 translate-y-0'}`}>
-          <div className="max-w-2xl w-full flex flex-col gap-12 pb-32">
+        <div className={`absolute inset-0 transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform flex flex-col items-center overflow-y-auto px-10 py-16 ${showGraph ? 'scale-[0.85] opacity-0 blur-2xl pointer-events-none translate-y-20' : 'scale-100 opacity-100 translate-y-0'}`}>
+          <div className="max-w-3xl w-full flex flex-col gap-16 pb-40">
             
-            {/* Metadata Header */}
-            <div className="flex flex-col gap-4 border-l-2 border-amber-500/30 pl-6 py-2">
-              <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white/10 text-white/60">
+            {/* Context Header */}
+            <div className="flex flex-col gap-6 relative">
+              <div className="absolute -left-10 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-500 via-cyan-500 to-transparent opacity-50" />
+              <div className="flex items-center gap-3">
+                <span className="px-3 py-1 rounded-sm text-[10px] font-bold uppercase tracking-[0.2em] bg-white/5 border border-white/10 text-white/50">
                   {activeNode.type}
                 </span>
-                <span className="text-white/30">•</span>
-                <span className="text-sm text-white/50">{activeNode.themes.join(' • ')}</span>
+                <div className="h-px w-8 bg-white/10" />
+                <span className="text-xs text-white/40 uppercase tracking-widest font-medium">{activeNode.themes.join(' • ')}</span>
               </div>
-              <p className="text-xl font-serif italic text-white/80 leading-relaxed">
-                "{activeNode.excerpt}"
+              <p className="text-3xl font-serif italic text-white/90 leading-tight max-w-xl border-l-4 border-amber-500 pl-6 glow-orange">
+                {activeNode.excerpt}
               </p>
             </div>
 
             {/* Content Body */}
-            <div className="prose prose-invert max-w-none prose-headings:font-serif prose-headings:font-bold prose-p:text-lg prose-p:leading-loose text-white/90">
-               <div dangerouslySetInnerHTML={{ __html: activeNode.content || '' }} 
+            <div className="prose prose-invert max-w-none prose-headings:font-stencil prose-headings:text-4xl prose-headings:tracking-wider prose-headings:text-white prose-p:text-xl prose-p:leading-loose prose-strong:text-amber-500 text-white/80">
+               <div 
+                    className="space-y-10"
+                    dangerouslySetInnerHTML={{ __html: activeNode.content || '' }} 
                     onMouseOver={(e) => {
                       const target = e.target as HTMLElement;
                       const conceptId = target.getAttribute('data-concept');
@@ -124,27 +127,44 @@ const App: React.FC = () => {
                       if (conceptId) handleConceptClick(conceptId);
                     }}
                />
+               
+               {activeNode.type === 'song' && (
+                 <div className="mt-16 p-10 bg-cyan-500/5 border border-cyan-500/20 rounded-3xl flex items-center gap-8 group cursor-pointer hover:bg-cyan-500/10 transition-all shadow-2xl">
+                    <div className="w-20 h-20 rounded-full bg-cyan-500 flex items-center justify-center shadow-[0_0_30px_rgba(6,182,212,0.5)] group-hover:scale-110 transition-transform">
+                      <Play fill="white" size={32} />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-stencil text-2xl mb-1 tracking-wide">Stream Audio Archive</h4>
+                      <p className="text-cyan-500/60 text-sm uppercase tracking-[0.2em] font-black">Decrypting Sonic Signature...</p>
+                    </div>
+                    <div className="ml-auto">
+                      <Activity className="text-cyan-500/30 animate-pulse" size={40} />
+                    </div>
+                 </div>
+               )}
             </div>
           </div>
         </div>
 
         {/* GRAPH VIEW OVERLAY */}
-        <div className={`absolute inset-0 transition-all duration-500 ease-out z-30 ${showGraph ? 'opacity-100 translate-y-0' : 'opacity-0 pointer-events-none translate-y-[-20px]'}`}>
+        <div className={`absolute inset-0 transition-all duration-700 ease-out z-30 ${showGraph ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 pointer-events-none translate-y-[-40px] scale-110'}`}>
           <GraphVisualization 
-            data={INITIAL_GRAPH} 
+            data={graphData} 
             activeNodeId={activeNodeId}
             onNodeClick={handleNodeClick}
             onNodeHover={setHoveredNode}
           />
 
-          {/* Graph Controls */}
-          <div className="absolute top-6 left-6 flex flex-col gap-2 z-40">
-             <div className="bg-black/80 backdrop-blur-lg border border-white/10 p-4 rounded-xl flex flex-col gap-3 min-w-[200px]">
-                <h3 className="text-xs font-bold uppercase tracking-widest text-white/40 border-b border-white/5 pb-2">Visualization Filter</h3>
-                <div className="flex flex-col gap-2">
-                   {Object.keys(COLORS).filter(k => k !== 'background' && k !== 'connection').map((type) => (
-                     <div key={type} className="flex items-center gap-2 text-xs text-white/70">
-                        <div className="w-2 h-2 rounded-full" style={{ background: (COLORS as any)[type] }} />
+          {/* Graph Legend */}
+          <div className="absolute top-8 left-8 flex flex-col gap-3 z-40">
+             <div className="bg-black/90 backdrop-blur-2xl border border-white/10 p-5 rounded-2xl flex flex-col gap-4 shadow-2xl border-l-4 border-l-amber-500">
+                <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 border-b border-white/5 pb-3 flex items-center gap-2">
+                   <Activity size={12} className="text-amber-500" /> Web Typology
+                </h3>
+                <div className="grid grid-cols-1 gap-3">
+                   {Object.entries(COLORS).filter(([k]) => !['background', 'connection'].includes(k)).map(([type, color]) => (
+                     <div key={type} className="flex items-center gap-3 text-[11px] text-white/70 font-medium tracking-wide">
+                        <div className="w-3 h-3 rounded-sm shadow-[0_0_10px_rgba(255,255,255,0.1)]" style={{ background: color }} />
                         <span className="capitalize">{type}</span>
                      </div>
                    ))}
@@ -152,25 +172,26 @@ const App: React.FC = () => {
              </div>
           </div>
 
-          {/* Node Hover Preview Card */}
+          {/* Node Hover Preview Card - "Polaroid Style" */}
           {hoveredNode && (
-            <div className="absolute bottom-10 right-10 bg-[#1A1A1A] border border-amber-500/40 w-[320px] rounded-xl shadow-2xl overflow-hidden z-40 animate-in fade-in slide-in-from-bottom-4 duration-300">
-              <div className="p-4 flex flex-col gap-3">
+            <div className="absolute bottom-12 right-12 bg-black border border-white/20 w-[380px] rounded-sm shadow-[0_40px_80px_rgba(0,0,0,0.9)] overflow-hidden z-40 animate-in fade-in slide-in-from-bottom-8 duration-500">
+              <div className="h-2 w-full" style={{ background: COLORS[hoveredNode.type as keyof typeof COLORS] || '#fff' }} />
+              <div className="p-8 flex flex-col gap-5">
                 <div className="flex justify-between items-start">
-                  <h4 className="font-serif font-bold text-lg leading-tight">{hoveredNode.title}</h4>
-                  <span className="px-1.5 py-0.5 bg-white/10 text-[9px] uppercase font-bold rounded text-white/60">{hoveredNode.type}</span>
+                  <h4 className="font-stencil text-3xl text-white tracking-wider leading-tight glow-cyan">{hoveredNode.title}</h4>
+                  <span className="px-2 py-1 bg-white/5 border border-white/10 text-[9px] uppercase font-black rounded tracking-[0.2em] text-white/40">{hoveredNode.type}</span>
                 </div>
-                <div className="flex flex-wrap gap-1">
+                <div className="flex flex-wrap gap-2">
                   {hoveredNode.themes.map(t => (
-                    <span key={t} className="text-[10px] text-amber-500/80 uppercase tracking-tighter">#{t}</span>
+                    <span key={t} className="text-[9px] font-bold text-amber-500/80 uppercase tracking-widest bg-amber-500/5 px-2 py-0.5 rounded border border-amber-500/10">#{t}</span>
                   ))}
                 </div>
-                <p className="text-sm text-white/60 line-clamp-3 italic">
+                <p className="text-base text-white/60 line-clamp-3 italic font-serif leading-relaxed border-l-2 border-white/10 pl-4">
                   "{hoveredNode.excerpt}"
                 </p>
-                <div className="pt-2 flex justify-between items-center text-[10px] text-white/30 border-t border-white/5">
-                  <span>8 Connections</span>
-                  <span className="text-amber-500/50 uppercase font-bold">Click to Drop</span>
+                <div className="pt-6 flex justify-between items-center text-[10px] text-amber-500 uppercase font-black tracking-[0.3em] border-t border-white/10">
+                  <span className="flex items-center gap-2 animate-pulse"><Map size={14} /> Tracking Node</span>
+                  <span className="text-white/40">Drop into Document</span>
                 </div>
               </div>
             </div>
@@ -181,20 +202,23 @@ const App: React.FC = () => {
       {/* SEMANTIC ANCHOR POPUP */}
       {activeConcept && conceptPosition && (
         <div 
-          className="fixed z-[100] bg-black/90 border border-amber-500/30 p-4 rounded-lg shadow-2xl w-64 pointer-events-none animate-in zoom-in-95 duration-200"
+          className="fixed z-[100] bg-black/95 border border-amber-500/40 p-6 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] w-80 pointer-events-none animate-in zoom-in-95 duration-200 backdrop-blur-xl border-t-4 border-t-amber-500"
           style={{ 
-            top: conceptPosition.y + 20, 
-            left: Math.min(conceptPosition.x - 128, window.innerWidth - 300) 
+            top: conceptPosition.y + 30, 
+            left: Math.min(conceptPosition.x - 160, window.innerWidth - 350) 
           }}
         >
-          <div className="flex flex-col gap-2">
-            <h4 className="text-amber-500 font-bold text-xs uppercase tracking-widest">{activeConcept.phrase}</h4>
-            <p className="text-xs text-white/70 leading-relaxed">{activeConcept.definition}</p>
-            <div className="mt-2 pt-2 border-t border-white/10">
-              <span className="text-[9px] text-white/40 block mb-1">RELATED CONCEPTS</span>
-              <div className="flex flex-wrap gap-1">
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center justify-between">
+              <h4 className="text-amber-500 font-stencil text-2xl tracking-widest">{activeConcept.phrase}</h4>
+              <Info size={16} className="text-amber-500/30" />
+            </div>
+            <p className="text-sm text-white/80 leading-relaxed font-medium">{activeConcept.definition}</p>
+            <div className="mt-2 pt-4 border-t border-white/10">
+              <span className="text-[10px] text-white/30 font-black tracking-[0.3em] block mb-3 uppercase">Neural Paths</span>
+              <div className="flex flex-wrap gap-2">
                 {activeConcept.connections.map(c => (
-                  <span key={c} className="bg-white/5 px-1.5 py-0.5 rounded text-[9px] text-white/60 border border-white/5">
+                  <span key={c} className="bg-white/5 px-3 py-1 rounded-full text-[10px] text-white/70 border border-white/10 uppercase tracking-tight hover:bg-white/10 transition-colors">
                     {c.replace(/-/g, ' ')}
                   </span>
                 ))}
@@ -205,21 +229,38 @@ const App: React.FC = () => {
       )}
 
       {/* FOOTER BREADCRUMBS */}
-      <footer className="z-40 h-10 bg-black/80 border-t border-white/5 flex items-center px-6 overflow-hidden shrink-0">
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+      <footer className="z-40 h-14 bg-black border-t border-white/5 flex items-center px-10 overflow-hidden shrink-0">
+        <div className="flex items-center gap-6 overflow-x-auto no-scrollbar py-1">
           {history.map((h, i) => (
             <React.Fragment key={i}>
-              <span 
+              <button 
                 onClick={() => handleNodeClick(h.nodeId)}
-                className={`text-[10px] whitespace-nowrap cursor-pointer hover:text-white transition-colors uppercase tracking-widest font-bold ${i === history.length - 1 ? 'text-amber-500' : 'text-white/30'}`}
+                className={`text-[11px] whitespace-nowrap cursor-pointer hover:text-white transition-all uppercase tracking-[0.3em] font-black ${i === history.length - 1 ? 'text-amber-500 glow-orange' : 'text-white/20 hover:text-white/50'}`}
               >
                 {h.title}
-              </span>
-              {i < history.length - 1 && <span className="text-white/10">/</span>}
+              </button>
+              {i < history.length - 1 && <div className="w-1.5 h-1.5 rounded-full bg-white/10 shrink-0" />}
             </React.Fragment>
           ))}
         </div>
       </footer>
+
+      <style>{`
+        .animate-spin-slow {
+          animation: spin 6s linear infinite;
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </div>
   );
 };
