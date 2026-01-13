@@ -3,11 +3,17 @@ import { GraphData, Node, Edge } from './types';
 import { VAULT } from './vault';
 
 /**
- * AI SYSTEM INSTRUCTIONS (VS CODE / LLM):
- * 1. NEURAL RESONANCE: Every document must contain at least two conceptLink() calls to sibling nodes.
- * 2. FORENSIC INTEGRITY: Links are the lifeblood. When adding nodes, use CORE_LINKS to map logical dependencies.
- * 3. INGESTION FLOW: The VAULT is for staging; CORE_NODES is for the permanent archive. 
- * 4. INTERACTION: Concept links trigger a "Zoom to Web" selection phase before document entry.
+ * AI SYSTEM INSTRUCTIONS (FORENSIC ARCHITECTURE):
+ * 1. NEURAL RESONANCE: Every document MUST contain at least two conceptLink() calls to sibling nodes. 
+ *    This ensures no "Island Nodes" exist in the forensic web.
+ * 2. LINK CATEGORIZATION: 
+ *    - 'defines': Structural, high strength (0.9). 
+ *    - 'depicts': Narrative example of theory (0.7-0.8).
+ *    - 'influences': Temporal or emotional cause/effect (0.6).
+ *    - 'contradicts': Ideological friction (0.4-0.5).
+ * 3. INGESTION PROTOCOL: Use VAULT for rapid data entry. The engine slugs titles into safe IDs.
+ * 4. INTERACTION DESIGN: Concept links in document text MUST trigger the "Zoom to Web" phase. 
+ *    The app uses this to force the user to visualize the connection before entering the next node.
  */
 
 const conceptLink = (id: string, text: string) => 
@@ -200,7 +206,8 @@ const CORE_NODES: Node[] = [
       themes: ["sovereignty", "manifesto", "street-ethics"],
       excerpt: "The philosophical mandate for radical honesty as a necessary survival mechanism.",
       content: `<h2>Narrative Sovereignty</h2>
-<p>In the concrete canyons of Southern California, authenticity is not a choice—it is a survival mechanism. If we don't write our story, the city paints it over.</p>`
+<p>In the concrete canyons of Southern California, authenticity is not a choice—it is a survival mechanism. If we don't write our story, the city paints it over.</p>
+<p>This document serves as the philosophical anchor against ${conceptLink("asymmetric-threat-model", "Networked Manipulation")}.</p>`
     },
     {
       id: "exploitation-cycle",
@@ -257,39 +264,56 @@ const CORE_LINKS: Edge[] = [
     { source: "psych-warfare-manual", target: "asymmetric-threat-model", type: "defines", strength: 0.9 },
     { source: "psych-warfare-manual", target: "exploitation-cycle", type: "defines", strength: 0.8 },
     { source: "psych-warfare-manual", target: "the-smear", type: "defines", strength: 0.7 },
+    { source: "psych-warfare-manual", target: "soft-probe", type: "defines", strength: 0.65 },
+    { source: "psych-warfare-manual", target: "authenticity-manifesto", type: "contradicts", strength: 0.5 },
     { source: "civilian-weaponization-doc", target: "the-smear", type: "defines", strength: 0.8 },
     { source: "civilian-weaponization-doc", target: "social-test-narrative", type: "depicts", strength: 0.75 },
     { source: "civilian-weaponization-doc", target: "exploitation-cycle", type: "influences", strength: 0.65 },
+    { source: "civilian-weaponization-doc", target: "jess-forensic-analysis", type: "conceptual", strength: 0.6 },
     { source: "asymmetric-threat-model", target: "civilian-weaponization-doc", type: "conceptual", strength: 0.9 },
     { source: "asymmetric-threat-model", target: "jess-forensic-analysis", type: "depicts", strength: 0.85 },
     { source: "asymmetric-threat-model", target: "exploitation-cycle", type: "conceptual", strength: 0.8 },
     { source: "asymmetric-threat-model", target: "soft-probe", type: "defines", strength: 0.7 },
+    { source: "asymmetric-threat-model", target: "social-test-narrative", type: "conceptual", strength: 0.6 },
+    { source: "asymmetric-threat-model", target: "still-here", type: "influences", strength: 0.4 },
     { source: "jess-forensic-analysis", target: "the-smear", type: "depicts", strength: 0.8 },
     { source: "jess-forensic-analysis", target: "inner-game", type: "conceptual", strength: 0.8 },
     { source: "jess-forensic-analysis", target: "lacey-relationship", type: "conceptual", strength: 0.7 },
     { source: "jess-forensic-analysis", target: "asymmetric-threat-model", type: "depicts", strength: 0.9 },
     { source: "jess-forensic-analysis", target: "authenticity-manifesto", type: "contradicts", strength: 0.6 },
+    { source: "jess-forensic-analysis", target: "prison-experience", type: "influences", strength: 0.5 },
     { source: "lacey-relationship", target: "prison-experience", type: "conceptual", strength: 0.6 },
     { source: "lacey-relationship", target: "authenticity-manifesto", type: "conceptual", strength: 0.8 },
+    { source: "lacey-relationship", target: "inner-game", type: "influences", strength: 0.7 },
     { source: "prison-experience", target: "authenticity-manifesto", type: "influences", strength: 0.7 },
     { source: "prison-experience", target: "inner-game", type: "influences", strength: 0.75 },
     { source: "prison-experience", target: "still-here", type: "influences", strength: 0.55 },
+    { source: "prison-experience", target: "psych-warfare-manual", type: "contradicts", strength: 0.5 },
     { source: "social-test-narrative", target: "soft-probe", type: "depicts", strength: 0.9 },
     { source: "social-test-narrative", target: "exploitation-cycle", type: "depicts", strength: 0.7 },
+    { source: "social-test-narrative", target: "authenticity-manifesto", type: "contradicts", strength: 0.6 },
     { source: "inner-game", target: "still-here", type: "influences", strength: 0.6 },
     { source: "inner-game", target: "prison-experience", type: "conceptual", strength: 0.65 },
     { source: "inner-game", target: "psych-warfare-manual", type: "contradicts", strength: 0.5 },
+    { source: "inner-game", target: "soft-probe", type: "conceptual", strength: 0.6 },
     { source: "the-smear", target: "social-test-narrative", type: "depicts", strength: 0.8 },
     { source: "the-smear", target: "soft-probe", type: "conceptual", strength: 0.6 },
     { source: "the-smear", target: "asymmetric-threat-model", type: "conceptual", strength: 0.7 },
+    { source: "the-smear", target: "jess-forensic-analysis", type: "conceptual", strength: 0.65 },
+    { source: "the-smear", target: "exploitation-cycle", type: "influences", strength: 0.6 },
     { source: "exploitation-cycle", target: "soft-probe", type: "defines", strength: 0.7 },
     { source: "exploitation-cycle", target: "asymmetric-threat-model", type: "conceptual", strength: 0.8 },
     { source: "exploitation-cycle", target: "jess-forensic-analysis", type: "depicts", strength: 0.6 },
+    { source: "exploitation-cycle", target: "the-smear", type: "influences", strength: 0.7 },
     { source: "authenticity-manifesto", target: "still-here", type: "conceptual", strength: 0.9 },
+    { source: "authenticity-manifesto", target: "social-test-narrative", type: "contradicts", strength: 0.5 },
+    { source: "authenticity-manifesto", target: "psych-warfare-manual", type: "contradicts", strength: 0.7 },
     { source: "still-here", target: "lacey-relationship", type: "depicts", strength: 0.5 },
     { source: "still-here", target: "authenticity-manifesto", type: "conceptual", strength: 0.85 },
+    { source: "still-here", target: "prison-experience", type: "depicts", strength: 0.6 },
     { source: "soft-probe", target: "the-smear", type: "conceptual", strength: 0.55 },
-    { source: "soft-probe", target: "asymmetric-threat-model", type: "conceptual", strength: 0.6 }
+    { source: "soft-probe", target: "asymmetric-threat-model", type: "conceptual", strength: 0.6 },
+    { source: "soft-probe", target: "inner-game", type: "conceptual", strength: 0.7 }
 ];
 
 /**
@@ -301,7 +325,8 @@ function processVault(): { nodes: Node[], links: Edge[] } {
   const links: Edge[] = [];
 
   VAULT.forEach(doc => {
-    const id = doc.title.toLowerCase().replace(/\s+/g, '-');
+    // Cleaner slugging for deployment readiness
+    const id = doc.title.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '-');
     nodes.push({
       id,
       type: doc.type,

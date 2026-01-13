@@ -24,7 +24,7 @@ const App: React.FC = () => {
   const handleNodeClick = (nodeId: string) => {
     setActiveNodeId(nodeId);
     setShowGraph(false);
-    setHighlightedNodeIds([]); // Clear any manual highlights upon selection
+    setHighlightedNodeIds([]); 
     setHistory(prev => {
       if (prev.length > 0 && prev[prev.length - 1].nodeId === nodeId) return prev;
       const node = graphData.nodes.find(n => n.id === nodeId);
@@ -33,7 +33,7 @@ const App: React.FC = () => {
   };
 
   const toggleGraph = () => {
-    if (showGraph) setHighlightedNodeIds([]); // Reset highlights when closing graph manually
+    if (showGraph) setHighlightedNodeIds([]);
     setShowGraph(!showGraph);
   };
 
@@ -60,7 +60,7 @@ const App: React.FC = () => {
     const concept = activeNode.concepts?.find(c => c.id === conceptId);
     if (concept && concept.connections.length > 0) {
       setHighlightedNodeIds(concept.connections);
-      setShowGraph(true); // Always zoom out to web for selection
+      setShowGraph(true); 
     } else {
       setShowGraph(true);
     }
@@ -68,14 +68,15 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden flex flex-col bg-[#080808]">
+    <div className="relative w-screen h-screen overflow-hidden flex flex-col bg-[#080808]" role="application" aria-label="Forensic Linkage Explorer">
       {/* PERSISTENT HEADER */}
       <nav className="z-50 flex items-center justify-between px-8 py-5 bg-black/60 backdrop-blur-xl border-b border-white/5 shrink-0">
         <div className="flex items-center gap-6">
           <button 
             onClick={handleBack}
             disabled={history.length <= 1}
-            className="p-2.5 hover:bg-white/10 rounded-full transition-all disabled:opacity-20 border border-transparent hover:border-white/10"
+            aria-label="Navigate to previous document"
+            className="p-2.5 hover:bg-white/10 rounded-full transition-all disabled:opacity-20 border border-transparent hover:border-white/10 focus:outline-none focus:ring-2 focus:ring-amber-500"
           >
             <ChevronLeft size={22} className="text-white" />
           </button>
@@ -88,7 +89,9 @@ const App: React.FC = () => {
         <div className="flex items-center gap-4">
           <button 
             onClick={toggleGraph}
-            className={`flex items-center gap-3 px-6 py-2.5 rounded-full border transition-all duration-700 group ${
+            aria-expanded={showGraph}
+            aria-label={showGraph ? "Close concept web" : "Explore concept web"}
+            className={`flex items-center gap-3 px-6 py-2.5 rounded-full border transition-all duration-700 group focus:outline-none focus:ring-2 focus:ring-amber-500 ${
               showGraph 
               ? 'bg-amber-600 border-amber-400 text-white shadow-[0_0_30px_rgba(217,119,6,0.3)]' 
               : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:border-white/20'
@@ -101,26 +104,26 @@ const App: React.FC = () => {
       </nav>
 
       {/* MAIN CONTENT AREA */}
-      <main className="relative flex-1 overflow-hidden">
+      <main className="relative flex-1 overflow-hidden" role="main">
         
         {/* DOCUMENT VIEW */}
         <div className={`absolute inset-0 transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform flex flex-col items-center overflow-y-auto px-10 py-16 ${showGraph ? 'scale-[0.85] opacity-0 blur-2xl pointer-events-none translate-y-20' : 'scale-100 opacity-100 translate-y-0'}`}>
-          <div className="max-w-3xl w-full flex flex-col gap-16 pb-40">
+          <article className="max-w-3xl w-full flex flex-col gap-16 pb-40">
             
             {/* Context Header */}
-            <div className="flex flex-col gap-6 relative">
+            <header className="flex flex-col gap-6 relative">
               <div className="absolute -left-10 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-500 via-cyan-500 to-transparent opacity-50" />
               <div className="flex items-center gap-3">
                 <span className="px-3 py-1 rounded-sm text-[10px] font-bold uppercase tracking-[0.2em] bg-white/5 border border-white/10 text-white/50">
                   {activeNode.type}
                 </span>
-                <div className="h-px w-8 bg-white/10" />
+                <div className="h-px w-8 bg-white/10" aria-hidden="true" />
                 <span className="text-xs text-white/40 uppercase tracking-widest font-medium">{activeNode.themes.join(' ')}</span>
               </div>
               <p className="text-3xl font-serif italic text-white/90 leading-tight max-w-xl border-l-4 border-amber-500 pl-6 glow-orange">
                 {activeNode.excerpt}
               </p>
-            </div>
+            </header>
 
             {/* Content Body */}
             <div className="prose prose-invert max-w-none prose-headings:font-stencil prose-headings:text-4xl prose-headings:tracking-wider prose-headings:text-white prose-p:text-xl prose-p:leading-loose prose-strong:text-amber-500 text-white/80">
@@ -141,7 +144,7 @@ const App: React.FC = () => {
                />
                
                {activeNode.type === 'song' && (
-                 <div className="mt-16 p-10 bg-cyan-500/5 border border-cyan-500/20 rounded-3xl flex items-center gap-8 group cursor-pointer hover:bg-cyan-500/10 transition-all shadow-2xl">
+                 <section aria-label="Audio Playback" className="mt-16 p-10 bg-cyan-500/5 border border-cyan-500/20 rounded-3xl flex items-center gap-8 group cursor-pointer hover:bg-cyan-500/10 transition-all shadow-2xl">
                     <div className="w-20 h-20 rounded-full bg-cyan-500 flex items-center justify-center shadow-[0_0_30px_rgba(6,182,212,0.5)] group-hover:scale-110 transition-transform">
                       <Play fill="white" size={32} />
                     </div>
@@ -149,13 +152,13 @@ const App: React.FC = () => {
                       <h4 className="text-white font-stencil text-2xl mb-1 tracking-wide">Stream Audio Archive</h4>
                       <p className="text-cyan-500/60 text-sm uppercase tracking-[0.2em] font-black">Decrypting Sonic Signature</p>
                     </div>
-                    <div className="ml-auto">
+                    <div className="ml-auto" aria-hidden="true">
                       <Activity className="text-cyan-500/30 animate-pulse" size={40} />
                     </div>
-                 </div>
+                 </section>
                )}
             </div>
-          </div>
+          </article>
         </div>
 
         {/* GRAPH VIEW OVERLAY */}
@@ -169,7 +172,7 @@ const App: React.FC = () => {
           />
 
           {/* Graph Legend */}
-          <div className="absolute top-8 left-8 flex flex-col gap-3 z-40">
+          <aside className="absolute top-8 left-8 flex flex-col gap-3 z-40">
              <div className="bg-black/90 backdrop-blur-2xl border border-white/10 p-5 rounded-2xl flex flex-col gap-4 shadow-2xl border-l-4 border-l-amber-500">
                 <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 border-b border-white/5 pb-3 flex items-center gap-2">
                    <Activity size={12} className="text-amber-500" /> Web Typology
@@ -183,11 +186,11 @@ const App: React.FC = () => {
                    ))}
                 </div>
              </div>
-          </div>
+          </aside>
 
-          {/* Node Hover Preview Card - "Polaroid Style" */}
+          {/* Node Hover Preview Card */}
           {hoveredNode && (
-            <div className="absolute bottom-12 right-12 bg-black border border-white/20 w-[380px] rounded-sm shadow-[0_40px_80px_rgba(0,0,0,0.9)] overflow-hidden z-40 animate-in fade-in slide-in-from-bottom-8 duration-500">
+            <div className="absolute bottom-12 right-12 bg-black border border-white/20 w-[380px] rounded-sm shadow-[0_40px_80px_rgba(0,0,0,0.9)] overflow-hidden z-40 animate-in fade-in slide-in-from-bottom-8 duration-500" role="complementary" aria-label="Node preview">
               <div className="h-2 w-full" style={{ background: COLORS[hoveredNode.type as keyof typeof COLORS] || '#fff' }} />
               <div className="p-8 flex flex-col gap-5">
                 <div className="flex justify-between items-start">
@@ -220,6 +223,7 @@ const App: React.FC = () => {
             top: conceptPosition.y + 30, 
             left: Math.min(conceptPosition.x - 160, window.innerWidth - 350) 
           }}
+          role="tooltip"
         >
           <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between">
@@ -231,7 +235,7 @@ const App: React.FC = () => {
               <span className="text-[10px] text-white/30 font-black tracking-[0.3em] block mb-3 uppercase">Neural Paths</span>
               <div className="flex flex-wrap gap-2">
                 {activeConcept.connections.map(c => (
-                  <span key={c} className="bg-white/5 px-3 py-1 rounded-full text-[10px] text-white/70 border border-white/10 uppercase tracking-tight hover:bg-white/10 transition-colors">
+                  <span key={c} className="bg-white/5 px-3 py-1 rounded-full text-[10px] text-white/70 border border-white/10 uppercase tracking-tight">
                     {c.replace(/-/g, ' ')}
                   </span>
                 ))}
@@ -242,20 +246,21 @@ const App: React.FC = () => {
       )}
 
       {/* FOOTER BREADCRUMBS */}
-      <footer className="z-40 h-14 bg-black border-t border-white/5 flex items-center px-10 overflow-hidden shrink-0">
-        <div className="flex items-center gap-6 overflow-x-auto no-scrollbar py-1">
+      <footer className="z-40 h-14 bg-black border-t border-white/5 flex items-center px-10 overflow-hidden shrink-0" role="contentinfo">
+        <nav className="flex items-center gap-6 overflow-x-auto no-scrollbar py-1" aria-label="Breadcrumb navigation">
           {history.map((h, i) => (
             <React.Fragment key={i}>
               <button 
                 onClick={() => handleNodeClick(h.nodeId)}
-                className={`text-[11px] whitespace-nowrap cursor-pointer hover:text-white transition-all uppercase tracking-[0.3em] font-black ${i === history.length - 1 ? 'text-amber-500 glow-orange' : 'text-white/20 hover:text-white/50'}`}
+                aria-current={i === history.length - 1 ? 'page' : undefined}
+                className={`text-[11px] whitespace-nowrap cursor-pointer hover:text-white transition-all uppercase tracking-[0.3em] font-black focus:outline-none focus:text-amber-500 ${i === history.length - 1 ? 'text-amber-500 glow-orange' : 'text-white/20 hover:text-white/50'}`}
               >
                 {h.title}
               </button>
-              {i < history.length - 1 && <div className="w-1 h-1 rounded-full bg-white/5 shrink-0" />}
+              {i < history.length - 1 && <div className="w-1 h-1 rounded-full bg-white/5 shrink-0" aria-hidden="true" />}
             </React.Fragment>
           ))}
-        </div>
+        </nav>
       </footer>
 
       <style>{`
