@@ -10,6 +10,7 @@ const App: React.FC = () => {
   const [activeNodeId, setActiveNodeId] = useState<string>("psych-warfare-manual");
   const [showGraph, setShowGraph] = useState<boolean>(false);
   const [hoveredNode, setHoveredNode] = useState<Node | null>(null);
+  const [highlightedNodeIds, setHighlightedNodeIds] = useState<string[]>([]);
   const [history, setHistory] = useState<HistoryItem[]>([
     { nodeId: "psych-warfare-manual", title: "Psychological Warfare Manual" }
   ]);
@@ -23,6 +24,7 @@ const App: React.FC = () => {
   const handleNodeClick = (nodeId: string) => {
     setActiveNodeId(nodeId);
     setShowGraph(false);
+    setHighlightedNodeIds([]); // Clear any manual highlights upon selection
     setHistory(prev => {
       if (prev.length > 0 && prev[prev.length - 1].nodeId === nodeId) return prev;
       const node = graphData.nodes.find(n => n.id === nodeId);
@@ -30,7 +32,10 @@ const App: React.FC = () => {
     });
   };
 
-  const toggleGraph = () => setShowGraph(!showGraph);
+  const toggleGraph = () => {
+    if (showGraph) setHighlightedNodeIds([]); // Reset highlights when closing graph manually
+    setShowGraph(!showGraph);
+  };
 
   const handleBack = () => {
     if (history.length > 1) {
@@ -39,6 +44,7 @@ const App: React.FC = () => {
       const prev = newHistory[newHistory.length - 1];
       setActiveNodeId(prev.nodeId);
       setHistory(newHistory);
+      setHighlightedNodeIds([]);
     }
   };
 
@@ -51,8 +57,14 @@ const App: React.FC = () => {
   };
 
   const handleConceptClick = (conceptId: string) => {
+    const concept = activeNode.concepts?.find(c => c.id === conceptId);
+    if (concept && concept.connections.length > 0) {
+      setHighlightedNodeIds(concept.connections);
+      setShowGraph(true); // Always zoom out to web for selection
+    } else {
+      setShowGraph(true);
+    }
     setActiveConcept(null);
-    setShowGraph(true);
   };
 
   return (
@@ -103,7 +115,7 @@ const App: React.FC = () => {
                   {activeNode.type}
                 </span>
                 <div className="h-px w-8 bg-white/10" />
-                <span className="text-xs text-white/40 uppercase tracking-widest font-medium">{activeNode.themes.join(' • ')}</span>
+                <span className="text-xs text-white/40 uppercase tracking-widest font-medium">{activeNode.themes.join(' ')}</span>
               </div>
               <p className="text-3xl font-serif italic text-white/90 leading-tight max-w-xl border-l-4 border-amber-500 pl-6 glow-orange">
                 {activeNode.excerpt}
@@ -135,7 +147,7 @@ const App: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="text-white font-stencil text-2xl mb-1 tracking-wide">Stream Audio Archive</h4>
-                      <p className="text-cyan-500/60 text-sm uppercase tracking-[0.2em] font-black">Decrypting Sonic Signature...</p>
+                      <p className="text-cyan-500/60 text-sm uppercase tracking-[0.2em] font-black">Decrypting Sonic Signature</p>
                     </div>
                     <div className="ml-auto">
                       <Activity className="text-cyan-500/30 animate-pulse" size={40} />
@@ -151,6 +163,7 @@ const App: React.FC = () => {
           <GraphVisualization 
             data={graphData} 
             activeNodeId={activeNodeId}
+            highlightedNodeIds={highlightedNodeIds}
             onNodeClick={handleNodeClick}
             onNodeHover={setHoveredNode}
           />
@@ -183,11 +196,11 @@ const App: React.FC = () => {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {hoveredNode.themes.map(t => (
-                    <span key={t} className="text-[9px] font-bold text-amber-500/80 uppercase tracking-widest bg-amber-500/5 px-2 py-0.5 rounded border border-amber-500/10">#{t}</span>
+                    <span key={t} className="text-[9px] font-bold text-amber-500/80 uppercase tracking-widest bg-amber-500/5 px-2 py-0.5 rounded border border-amber-500/10">{t}</span>
                   ))}
                 </div>
                 <p className="text-base text-white/60 line-clamp-3 italic font-serif leading-relaxed border-l-2 border-white/10 pl-4">
-                  "{hoveredNode.excerpt}"
+                  {hoveredNode.excerpt}
                 </p>
                 <div className="pt-6 flex justify-between items-center text-[10px] text-amber-500 uppercase font-black tracking-[0.3em] border-t border-white/10">
                   <span className="flex items-center gap-2 animate-pulse"><Map size={14} /> Tracking Node</span>
@@ -239,7 +252,7 @@ const App: React.FC = () => {
               >
                 {h.title}
               </button>
-              {i < history.length - 1 && <div className="w-1.5 h-1.5 rounded-full bg-white/10 shrink-0" />}
+              {i < history.length - 1 && <div className="w-1 h-1 rounded-full bg-white/5 shrink-0" />}
             </React.Fragment>
           ))}
         </div>
