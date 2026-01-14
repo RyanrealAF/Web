@@ -10,15 +10,16 @@
     "test:ci": "node run-tests.js"
   },
   "dependencies": {
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
     "d3": "^7.9.0",
-    "lucide-react": "^0.562.0"
+    "lucide-react": "^0.562.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
     "glob": "^10.3.10",
+    "terser": "^5.44.1",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }
