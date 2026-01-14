@@ -17,11 +17,11 @@ export const VAULT: IngestedDocument[] = [
     linksTo: ["jess-forensic-analysis", "exploitation-cycle"],
     rawContent: `
       <h2>Log Entry: Dec 25, 2024</h2>
-      <p>The tactical revocation of keys. Notice was served not through legal channels but through psychological pressure. 
-      The goal was immediate displacement to trigger the Vulnerability State defined in the exploitation manual.</p>
+      <p>The tactical revocation of keys. Notice was served not through legal channels but through psychological pressure.
+      The goal was immediate displacement to trigger the <span data-concept="vulnerability-state" class="text-amber-500 underline cursor-help decoration-solid decoration-2 underline-offset-4 hover:bg-amber-500/10 transition-colors px-1 rounded">Vulnerability State</span> defined in the exploitation manual.</p>
 
       <h2>Observations on Material Attrition</h2>
-      <p>By removing the physical sanctuary, the orchestrator forces the subject into public spaces where surveillance (Civilian Weaponization) is more effective.</p>
+      <p>By removing the physical sanctuary, the orchestrator forces the subject into public spaces where surveillance (<span data-concept="civilian-weaponization" class="text-amber-500 underline cursor-help decoration-solid decoration-2 underline-offset-4 hover:bg-amber-500/10 transition-colors px-1 rounded">Civilian Weaponization</span>) is more effective.</p>
     `
   },
   {
@@ -32,7 +32,7 @@ export const VAULT: IngestedDocument[] = [
     linksTo: ["psych-warfare-manual", "jess-forensic-analysis", "inner-game"],
     rawContent: `
       <h2>Lyrical Analysis: The Mirror Phase</h2>
-      <p>The track opens with a dissonant loop, mimicking the circular logic of a DARVO defense. The lyrics recount a series of "deniable events" where the speaker is told their memory is a "fractured lens."</p>
+      <p>The track opens with a dissonant loop, mimicking the circular logic of a <span data-concept="darvo-defense" class="text-amber-500 underline cursor-help decoration-solid decoration-2 underline-offset-4 hover:bg-amber-500/10 transition-colors px-1 rounded">DARVO defense</span>. The lyrics recount a series of "deniable events" where the speaker is told their memory is a "fractured lens."</p>
 
       <h3>Chorus</h3>
       <p>It's just a shadow in your mind, they say,</p>
