@@ -1,4 +1,5 @@
 
+// Add React import to resolve namespace issues for React.FC
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { Node, Edge, GraphData, NodeType } from '../types';
@@ -102,16 +103,20 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
         const t = getTargetId(d.target);
         const isActive = s === activeNodeId || t === activeNodeId;
         const isHighlighted = highlightedNodeIds.includes(s) || highlightedNodeIds.includes(t);
-        return (isActive || isHighlighted) ? 0.8 : 0.3;
+        
+        if (isActive) return 1.0;
+        if (isHighlighted) return 0.7;
+        return 0.15; // Baseline opacity for background links
       })
       .attr("stroke-width", d => {
         const s = getSourceId(d.source);
         const t = getTargetId(d.target);
         const isActive = s === activeNodeId || t === activeNodeId;
         const isHighlighted = highlightedNodeIds.includes(s) || highlightedNodeIds.includes(t);
-        if (isActive) return d.strength * 6;
-        if (isHighlighted) return d.strength * 4;
-        return d.strength * 2;
+        
+        if (isActive) return d.strength * 10; // High prominence for active node
+        if (isHighlighted) return d.strength * 5; // Medium prominence for highlighted connections
+        return d.strength * 1.5; // Baseline width
       });
 
     const node = g.append("g")
