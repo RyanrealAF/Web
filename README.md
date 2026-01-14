@@ -142,12 +142,12 @@ npm run build
 ```
 Output directory:
 ```
-build/
+dist/
 ```
 
 ### **6.2 Hosting**
-- Cloudflare Pages  
-- GitHub → CI → Cloudflare auto‑deploy  
+- Cloudflare Pages with firewall protection
+- GitHub → CI → Cloudflare auto‑deploy
 
 ### **6.3 SPA Routing**
 `/public/_routes.json`:
@@ -164,12 +164,36 @@ build/
 }
 ```
 
-### **6.4 CI Pipeline**
-GitHub Actions validates:
-- install  
-- lint  
-- test  
-- build  
+### **6.4 Security & Firewall Protection**
+The application includes comprehensive auto-trigger firewall protection:
+
+#### **Development Server Firewall**
+- **Rate Limiting**: 100 requests per 15-minute window
+- **Host Validation**: Only localhost/127.0.0.1 allowed
+- **Security Headers**: XSS, CSRF, content-type protection
+- **CORS Protection**: Origin validation
+- **CSP Headers**: Content Security Policy enforcement
+
+#### **Production Firewall**
+- **Cloudflare Headers**: Advanced security headers in `/public/_headers`
+- **Rate Limiting**: API route protection
+- **Content Protection**: Static asset integrity checks
+- **Access Control**: Origin and method restrictions
+
+#### **CI/CD Security**
+- **Vulnerability Scanning**: Trivy security scans
+- **Dependency Audit**: NPM security audit
+- **Type Checking**: TypeScript strict mode
+- **Build Security**: Code minification and obfuscation
+
+### **6.5 CI Pipeline**
+GitHub Actions validates with firewall protection:
+- security vulnerability scanning
+- dependency auditing
+- type checking
+- linting
+- testing
+- secure build process
 
 before Cloudflare deploys.
 
