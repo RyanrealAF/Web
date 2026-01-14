@@ -1,5 +1,5 @@
 
-import { IngestedDocument, File } from './types';
+import { IngestedDocument, File } from './types.ts';
 
 /**
  * FORENSIC VAULT: PRIMARY INGESTION POINT

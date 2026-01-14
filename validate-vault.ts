@@ -1,4 +1,4 @@
-import { VAULT } from '../vault';
+import { VAULT } from './vault.ts';
 
 /**
  * FORENSIC INTEGRITY CHECKER
