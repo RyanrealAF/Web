@@ -1,0 +1,58 @@
+[
+  {
+    "id": "multi-trail-forensic-approach",
+    "title": "A Multi-Trail Forensic Approach to Identifying Hidden Coordination in Legal and Political Contexts",
+    "category": "Forensic Methodology",
+    "tags": ["forensic analysis", "hidden coordination", "legal contexts", "political processes", "multi-trail approach", "investigative methodology", "evidence synthesis", "coordination detection"],
+    "path": "Database/processed/A Multi-Trail Forensic Approach to Identifying Hidden Coordination in Legal and Political Contexts.txt",
+    "summary": "This paper presents a systematic methodology for detecting covert orchestration in legal and political processes by analyzing multiple converging streams of evidence called \"trails.\" The approach examines communications, procedural decisions, media narratives, and institutional pressures to reveal patterns of hidden influence. It offers investigators a structured method for transforming fragmented information into coherent evidence while maintaining ethical standards."
+  },
+  {
+    "id": "chapter-1-operational-framework",
+    "title": "The Operational Framework of Systematic Psychological Operations",
+    "category": "Psychological Warfare",
+    "tags": ["psychological operations", "covert destabilization", "HUMINT campaigns", "manipulation tactics", "intelligence roles", "weaponized authenticity"],
+    "path": "Database/processed/chapter-1-operational-framework.txt",
+    "summary": "This chapter establishes the theoretical and methodological underpinnings for the study of covert psychological warfare, recontextualizing conflicts as sophisticated HUMINT campaigns. It defines key roles and concepts like the doctrine of covert destabilization, decentralized diffusion model, and weaponized authenticity."
+  },
+  {
+    "id": "civilians-as-weapons",
+    "title": "Civilians as Weapons: The Silent Soldiers of a Setup",
+    "category": "Social Engineering",
+    "tags": ["civilian weaponization", "psychological warfare", "manipulation tactics", "disinformation", "community influence", "surveillance", "rumor dissemination"],
+    "path": "Database/processed/civilians-as-weapons.txt",
+    "summary": "This volume explores the sophisticated psychological and sociopolitical strategies behind the weaponization of civilians in smear campaigns and targeted influence operations. It examines how everyday individuals are manipulated into roles of surveillance, signal-boosting, provocation, and rumor dissemination, and the individual and societal consequences of turning communities into vectors of psychological harm."
+  },
+  {
+    "id": "forensic-analysis-psychological-warfare",
+    "title": "Forensic Analysis: The Architecture of Systematic Psychological Warfare and Social Manipulation",
+    "category": "Forensic Methodology",
+    "tags": ["forensic analysis", "psychological warfare", "manipulation tactics", "HUMINT networks", "civilian weaponization", "psychological attrition", "asymmetric threats", "social engineering"],
+    "path": "Database/processed/forensic-analysis-psychological-warfare.txt",
+    "summary": "This analysis establishes the strategic and organizational blueprint for systematic psychological campaigns, emphasizing non-kinetic maneuver, HUMINT network hierarchies, exploitation cascades, and vulnerabilities in individuals and institutions."
+  },
+  {
+    "id": "forensic-analysis-systematic-psychological-warfare",
+    "title": "Forensic Analysis of Systematic Psychological Warfare: Pathology, Cognitive Degradation, and Decision-Making Impairment",
+    "category": "Forensic Methodology",
+    "tags": ["forensic analysis", "psychological warfare", "cognitive degradation", "decision-making impairment", "psychological attrition", "trauma-based attacks", "gaslighting", "amygdala hijack"],
+    "path": "Database/processed/forensic-analysis-systematic-psychological-warfare.txt",
+    "summary": "This analysis examines the erosion of cognitive integrity in systematic psychological warfare, detailing mechanisms of psychological attrition, trauma-based attacks, gaslighting, and their clinical consequences analogous to C-PTSD, along with counter-offensive strategies for resilience."
+  },
+  {
+    "id": "psychological-warfare-manual",
+    "title": "Psychological Warfare Manual",
+    "category": "Tactical Manual",
+    "tags": ["psychological warfare", "non-kinetic maneuver", "HUMINT network", "plausible deniability", "psychological attrition", "gaslighting", "reputation assassination", "counter-offensive doctrine"],
+    "path": "Database/processed/psychological-warfare-manual.txt",
+    "summary": "This manual serves as a comprehensive tactical guide for understanding, analyzing, and countering sophisticated psychological warfare operations, detailing the doctrine of non-kinetic maneuver, HUMINT network structures, operational tactics, and strategic defenses."
+  },
+  {
+    "id": "neurobiological-sequelae-distributed-psychological-warfare",
+    "title": "The Neurobiological Sequelae of Distributed Psychological Warfare: Analysis of Functional and Cognitive Collapse in a Case of Environmental Coercive Control",
+    "category": "Forensic Methodology",
+    "tags": ["psychological warfare", "neurobiological sequelae", "cognitive collapse", "environmental coercive control", "distributed assault", "HPA axis", "C-PTSD", "learned helplessness"],
+    "path": "Database/processed/neurobiological-sequelae-distributed-psychological-warfare.txt",
+    "summary": "This expert report analyzes the neurobiological effects of a four-year campaign of environmental coercive control, detailing mechanisms of sanctuary destruction, goal-blockade, and chemical coercion, their impact on HPA axis dysfunction, cognitive impairment, and C-PTSD development, with implications for intervention and societal control."
+  }
+]

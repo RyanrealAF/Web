@@ -1,0 +1,82 @@
+{
+  "forensic analysis": {
+    "appears_in": ["multi-trail-forensic-approach"],
+    "related_terms": ["investigative methodology", "evidence synthesis", "coordination detection"]
+  },
+  "hidden coordination": {
+    "appears_in": ["multi-trail-forensic-approach"],
+    "related_terms": ["coordination detection", "multi-trail approach"]
+  },
+  "legal contexts": {
+    "appears_in": ["multi-trail-forensic-approach"],
+    "related_terms": ["political processes", "investigative methodology"]
+  },
+  "political processes": {
+    "appears_in": ["multi-trail-forensic-approach"],
+    "related_terms": ["legal contexts", "evidence synthesis"]
+  },
+  "multi-trail approach": {
+    "appears_in": ["multi-trail-forensic-approach"],
+    "related_terms": ["forensic analysis", "coordination detection"]
+  },
+  "investigative methodology": {
+    "appears_in": ["multi-trail-forensic-approach"],
+    "related_terms": ["forensic analysis", "evidence synthesis"]
+  },
+  "evidence synthesis": {
+    "appears_in": ["multi-trail-forensic-approach"],
+    "related_terms": ["forensic analysis", "investigative methodology"]
+  },
+  "coordination detection": {
+    "appears_in": ["multi-trail-forensic-approach"],
+    "related_terms": ["hidden coordination", "multi-trail approach"]
+  },
+  "psychological operations": {
+    "appears_in": ["chapter-1-operational-framework"],
+    "related_terms": ["covert destabilization", "HUMINT campaigns"]
+  },
+  "covert destabilization": {
+    "appears_in": ["chapter-1-operational-framework"],
+    "related_terms": ["psychological operations", "weaponized authenticity"]
+  },
+  "HUMINT campaigns": {
+    "appears_in": ["chapter-1-operational-framework"],
+    "related_terms": ["psychological operations", "intelligence roles"]
+  },
+  "manipulation tactics": {
+    "appears_in": ["chapter-1-operational-framework", "civilians-as-weapons"],
+    "related_terms": ["psychological operations", "disinformation", "intelligence roles"]
+  },
+  "intelligence roles": {
+    "appears_in": ["chapter-1-operational-framework"],
+    "related_terms": ["HUMINT campaigns", "weaponized authenticity"]
+  },
+  "weaponized authenticity": {
+    "appears_in": ["chapter-1-operational-framework"],
+    "related_terms": ["covert destabilization", "intelligence roles"]
+  },
+  "civilian weaponization": {
+    "appears_in": ["civilians-as-weapons"],
+    "related_terms": ["surveillance", "rumor dissemination", "community influence"]
+  },
+  "psychological warfare": {
+    "appears_in": ["chapter-1-operational-framework", "civilians-as-weapons"],
+    "related_terms": ["psychological operations", "manipulation tactics"]
+  },
+  "disinformation": {
+    "appears_in": ["civilians-as-weapons"],
+    "related_terms": ["manipulation tactics", "rumor dissemination"]
+  },
+  "community influence": {
+    "appears_in": ["civilians-as-weapons"],
+    "related_terms": ["civilian weaponization", "surveillance"]
+  },
+  "surveillance": {
+    "appears_in": ["civilians-as-weapons"],
+    "related_terms": ["civilian weaponization", "community influence"]
+  },
+  "rumor dissemination": {
+    "appears_in": ["civilians-as-weapons"],
+    "related_terms": ["civilian weaponization", "disinformation"]
+  }
+}
