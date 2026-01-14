@@ -1,6 +1,5 @@
-
 import { GraphData, Node, Edge } from './types';
-import { VAULT } from './vault';
+import { VAULT, FILES } from './vault';
 
 /**
  * AI SYSTEM INSTRUCTIONS (FORENSIC ARCHITECTURE):
@@ -245,10 +244,31 @@ function processVault(): { nodes: Node[], links: Edge[] } {
   return { nodes, links };
 }
 
+function processFiles(): { nodes: Node[] } {
+    const nodes: Node[] = [];
+  
+    FILES.forEach(file => {
+      nodes.push({
+        id: file.id,
+        type: 'document',
+        title: file.name,
+        themes: file.tags,
+        excerpt: file.description,
+        content: `<p>Provenance: ${file.provenance}</p><a href="${file.path}" target="_blank" rel="noopener noreferrer">Open File</a>`,
+        metadata: {
+          filePath: file.path,
+        }
+      });
+    });
+  
+    return { nodes };
+  }
+
 const vaultIngestion = processVault();
+const fileIngestion = processFiles();
 
 export const INITIAL_GRAPH: GraphData = {
-  nodes: [...CORE_NODES, ...vaultIngestion.nodes],
+  nodes: [...CORE_NODES, ...vaultIngestion.nodes, ...fileIngestion.nodes],
   links: [...CORE_LINKS, ...vaultIngestion.links]
 };
 
@@ -260,5 +280,6 @@ export const COLORS = {
   era: "#a855f7",
   analysis: "#e879f9",
   background: "#080808",
-  connection: "rgba(249, 115, 22, 0.2)"
+  connection: "rgba(249, 115, 22, 0.2)",
+  document: "#facc15"
 };

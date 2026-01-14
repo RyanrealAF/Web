@@ -62,3 +62,15 @@ export interface HistoryItem {
   nodeId: string;
   title: string;
 }
+
+export type FileType = 'document' | 'audio' | 'image' | 'video' | 'data';
+
+export interface File {
+  id: string;            // Unique identifier (e.g., 'doc-001')
+  name: string;          // File name (e.g., 'forensic-report.pdf')
+  path: string;          // Relative path to the file
+  type: FileType;        // The type of file
+  description: string;   // Brief description of the file's content
+  tags: string[];        // Keywords for filtering and search
+  provenance: string;    // Origin or source of the file
+}
