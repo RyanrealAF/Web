@@ -26,7 +26,11 @@ export interface Node {
   excerpt?: string; // Short summary for the "Polaroid" preview
   concepts?: Concept[]; // Semantic anchors within the content
   content?: string; // Markdown-style HTML content
-  metadata?: Record<string, any>; // For future scalability (dates, authors, etc)
+  metadata?: {
+    date?: string;
+    classification?: 'unclassified' | 'confidential' | 'restricted' | 'redacted';
+    [key: string]: any;
+  };
 }
 
 export interface IngestedDocument {
@@ -36,6 +40,10 @@ export interface IngestedDocument {
   rawContent: string;
   excerpt: string;
   linksTo?: string[]; // IDs of existing nodes to connect to automatically
+  metadata?: {
+    date?: string;
+    classification?: 'unclassified' | 'confidential' | 'restricted' | 'redacted';
+  };
 }
 
 export interface Edge {

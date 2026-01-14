@@ -5,16 +5,8 @@ import { VAULT } from './vault';
 /**
  * AI SYSTEM INSTRUCTIONS (FORENSIC ARCHITECTURE):
  * 1. NEURAL RESONANCE: Every document MUST contain at least two conceptLink() calls to sibling nodes. 
- *    This ensures no "Island Nodes" exist in the forensic web.
- * 2. LINK CATEGORIZATION: 
- *    - 'defines': Structural, high strength (0.9). 
- *    - 'depicts': Narrative example of theory (0.7-0.8).
- *    - 'influences': Temporal or emotional cause/effect (0.6).
- *    - 'contradicts': Ideological friction or defensive maneuvers (0.4-0.5).
- * 3. INGESTION PROTOCOL: Use VAULT for rapid data entry. The engine slugs titles into safe IDs.
- * 4. INTERACTION DESIGN: Concept links in document text MUST trigger the "Zoom to Web" phase. 
- *    The app uses this to force the user to visualize the connection before entering the next node.
- * 5. STYLISTIC MANTRA: "Forensic, Brutalist, Authentic." Use high-contrast themes and precise terminology.
+ * 2. LINK CATEGORIZATION: Use 'defines' for theory, 'depicts' for evidence.
+ * 3. STYLISTIC MANTRA: "Forensic, Brutalist, Authentic." 
  */
 
 const conceptLink = (id: string, text: string) => 
@@ -31,29 +23,26 @@ const CORE_NODES: Node[] = [
         {
           id: "non-kinetic-maneuver",
           phrase: "Non-Kinetic Maneuver",
-          definition: "Achieving strategic objectives without physical force, using human vulnerabilities as the primary battlespace.",
+          definition: "Achieving strategic objectives without physical force.",
           connections: ["asymmetric-threat-model", "authenticity-manifesto", "exploitation-cycle"]
         },
         {
           id: "plausible-deniability",
           phrase: "Plausible Deniability",
-          definition: "Designing actions to have a benign alternative explanation, granting the orchestrator total impunity.",
+          definition: "Designing actions to have a benign alternative explanation.",
           connections: ["civilian-weaponization-doc", "exploitation-cycle", "the-smear"]
         },
         {
           id: "gray-space",
           phrase: "Gray Space",
-          definition: "The operational zone between legal and illegal, where rules are fluid and morality is weaponized.",
+          definition: "The operational zone between legal and illegal.",
           connections: ["social-test-narrative", "the-smear"]
         }
       ],
       content: `<h2>Preface: The War on Perception</h2>
-<p>The core doctrine of this discipline is ${conceptLink("non-kinetic-maneuver", "Non-Kinetic Maneuver")}, which dictates that strategic objectives are achieved without direct confrontation. This is a war on perception.</p>
-
+<p>The core doctrine of this discipline is ${conceptLink("non-kinetic-maneuver", "Non-Kinetic Maneuver")}.</p>
 <h3>Strategic Components</h3>
-<p>Psychological Attrition: Systematic application of stress to deplete cognitive resources.</p>
-<p>${conceptLink("gray-space", "Gray Space Operations")}: Operating in the shadows, using ${conceptLink("plausible-deniability", "Plausible Deniability")} as a shield.</p>
-<p>Alternative Narratives: Fabricated explanations that frame aggressive actions as innocent events.</p>`
+<p>${conceptLink("gray-space", "Gray Space Operations")}: Operating in the shadows, using ${conceptLink("plausible-deniability", "Plausible Deniability")} as a shield.</p>`
     },
     {
       id: "civilian-weaponization-doc",
@@ -61,27 +50,8 @@ const CORE_NODES: Node[] = [
       title: "Civilians as Weapons",
       themes: ["social-engineering", "surveillance", "echo-chambers"],
       excerpt: "Analyzing the Silent Soldiers—neighbors and baristas unknowingly enlisted into surveillance networks.",
-      concepts: [
-        {
-          id: "civilian-weaponization",
-          phrase: "Civilian Weaponization",
-          definition: "The systematic manipulation of everyday individuals into performing roles in a defamation campaign.",
-          connections: ["asymmetric-threat-model", "the-smear", "social-test-narrative"]
-        },
-        {
-          id: "narrative-entrapment",
-          phrase: "Narrative Entrapment",
-          definition: "Reinterpreting benign actions through a pre-established lens of suspicion.",
-          connections: ["inner-game", "social-test-narrative", "jess-forensic-analysis"]
-        }
-      ],
       content: `<h2>The Silent Soldiers</h2>
-<p>In hyper-connected societies, smear campaigns move beyond bots and media. They rely on local faces—trusted neighbors and familiar baristas—to engineer perception.</p>
-
-<h3>Mechanisms of Conscription</h3>
-<p>Authenticity Leverage: Neighbors are seen as neutral observers.</p>
-<p>${conceptLink("civilian-weaponization", "Deniable Diffusion")}: Decentralized spreading of suspicion via civilian networks.</p>
-<p>${conceptLink("narrative-entrapment", "Narrative Entrapment")}: Common behaviors are pre-branded as odd or suspicious, a technique frequently used in ${conceptLink("civilian-weaponization", "Street-Level Operative Deployment")}.</p>`
+<p>In hyper-connected societies, smear campaigns rely on local faces—trusted neighbors and familiar baristas.</p>`
     },
     {
       id: "jess-forensic-analysis",
@@ -89,29 +59,8 @@ const CORE_NODES: Node[] = [
       title: "Jess: Relational Duality",
       themes: ["accountability-disorder", "darvo", "eviction"],
       excerpt: "Forensic analysis of a bond defined by lifelong friendship and the weaponization of housing dependency.",
-      concepts: [
-        {
-          id: "asymmetric-loyalty",
-          phrase: "Asymmetric Loyalty",
-          definition: "A structural imbalance where one party provides years of support without reciprocation.",
-          connections: ["lacey-relationship", "authenticity-manifesto", "prison-experience", "asymmetric-threat-model"]
-        },
-        {
-          id: "darvo",
-          phrase: "DARVO",
-          definition: "Deny, Attack, and Reverse Victim and Offender.",
-          connections: ["inner-game", "the-smear", "psych-warfare-manual", "exploitation-cycle"]
-        }
-      ],
       content: `<h2>The Christmas Eve Escalation</h2>
-<p>The relationship with Jess reveals a core paradox: a foundational friend who consistently employed ${conceptLink("darvo", "DARVO")} tactics to evade responsibility.</p>
-
-<h3>The Material Turn</h3>
-<p>The Christmas Eve 2024 eviction represents a shift from psychological harm to material punishment. When the subject refused a direct lie, Jess deployed the ultimate weapon: revoking housing, a classic ${conceptLink("darvo", "Reversal Strategy")}.</p>
-
-<h3>Forensic Findings</h3>
-<p>${conceptLink("asymmetric-loyalty", "Asymmetric Loyalty")}: The subject carried the bond for years, never once kicking Jess out despite repeated betrayals.</p>
-<p>Strategic Amnesia: Documented text exchanges show Jess asking "Get over what exactly?"—a hallmark of ${conceptLink("darvo", "Gaslighting")} protocol.</p>`
+<p>The relationship with Jess reveals a core paradox: a foundational friend who consistently employed DARVO tactics.</p>`
     },
     {
       id: "asymmetric-threat-model",
@@ -119,28 +68,8 @@ const CORE_NODES: Node[] = [
       title: "The HUMINT Network",
       themes: ["C2", "intelligence", "handlers"],
       excerpt: "Deconstructing the tiered structure of modern psychological operations.",
-      concepts: [
-        {
-          id: "tier-structure",
-          phrase: "Tiered Structure",
-          definition: "The layered command and control model used to insulate the primary architect.",
-          connections: ["psych-warfare-manual", "civilian-weaponization-doc", "exploitation-cycle"]
-        },
-        {
-          id: "access-agent",
-          phrase: "Access Agent",
-          definition: "A person with pre-existing emotional proximity to the target who is co-opted for surveillance.",
-          connections: ["jess-forensic-analysis", "lacey-relationship"]
-        }
-      ],
       content: `<h2>Tiered Command and Control</h2>
-<p>Psychological operations are never the work of a lone actor. They require a networked HUMINT unit with a ${conceptLink("tier-structure", "Tiered Structure")}.</p>
-
-<h3>The Hierarchy</h3>
-<p>Tier 0 Architect: The strategic visionary who design the operation.</p>
-<p>Tier 1 Orchestrator: Commands via insinuation and plausible deniability.</p>
-<p>Tier 2 ${conceptLink("access-agent", "Access Agents")}: Use Rapport as a Weapon to gain proximity.</p>
-<p>Tier 3 Operatives: Witting or Unwitting Operatives performing street-level maneuvers.</p>`
+<p>Psychological operations require a networked HUMINT unit with a Tiered Structure.</p>`
     },
     {
       id: "lacey-relationship",
@@ -148,19 +77,8 @@ const CORE_NODES: Node[] = [
       title: "Lacey: Pure Gold to Streets",
       themes: ["foundational-bedrock", "CPS-trauma", "recovery"],
       excerpt: "The ultimate benchmark for connection, lost to systemic pressure.",
-      concepts: [
-        {
-          id: "recovery-vision",
-          phrase: "Recovery Vision",
-          definition: "A collaborative framework for stability built on mutual trust and shared growth.",
-          connections: ["authenticity-manifesto", "still-here", "prison-experience"]
-        }
-      ],
       content: `<h2>The Foundational Bedrock</h2>
-<p>Ryan's relationship with Lacey was the Ultimate Benchmark. They built a ${conceptLink("recovery-vision", "Recovery Vision")} together that was 80% pure gold.</p>
-
-<h3>Systemic Shattering</h3>
-<p>Past CPS trauma forced a flee to California. Stability evaporated, ending in a suicidal full kamikaze incident. This loss directly informs the urgency of the ${conceptLink("recovery-vision", "Authenticity Mandate")}.</p>`
+<p>Ryan's relationship with Lacey was the Ultimate Benchmark.</p>`
     },
     {
       id: "social-test-narrative",
@@ -168,19 +86,8 @@ const CORE_NODES: Node[] = [
       title: "The Social Test",
       themes: ["San-Diego", "loyalty-test", "survival"],
       excerpt: "A firsthand account of predetermined narratives and the weaponization of basic honesty.",
-      concepts: [
-        {
-          id: "forced-failure",
-          phrase: "Forced Failure",
-          definition: "Designing a situation where any response from the target is framed as a negative outcome.",
-          connections: ["soft-probe", "exploitation-cycle", "the-smear"]
-        }
-      ],
       content: `<h2>The Debit-Card Probe</h2>
-<p>In San Diego, a woman gave me her debit card for an errand, then sent a suspicious text. My honest return was met with fury.</p>
-
-<h3>The Goal: ${conceptLink("forced-failure", "Forced Failure")}</h3>
-<p>I realized the point wasn't for me to succeed; it was to fit a pre-written story used to frame honest behavior as malice, a typical ${conceptLink("forced-failure", "Social Test Strategy")}.</p>`
+<p>In San Diego, a woman gave me her debit card for an errand, then sent a suspicious text.</p>`
     },
     {
       id: "prison-experience",
@@ -188,17 +95,8 @@ const CORE_NODES: Node[] = [
       title: "The Cage as a Classroom",
       themes: ["GED-tutor", "leadership", "transformation"],
       excerpt: "How Ryan transformed incarceration into a platform for academic leadership.",
-      concepts: [
-        {
-          id: "transformation-logic",
-          phrase: "Academic Leadership",
-          definition: "Utilizing institutional constraints to foster intellectual growth and community sovereignty.",
-          connections: ["authenticity-manifesto", "recovery-vision", "inner-game"]
-        }
-      ],
       content: `<h2>Turning the Cage into a Classroom</h2>
-<p>Ryan served three prison terms, turning the time into a job site. As a GED tutor, he outperformed credentialed teachers by speaking the language of the guys.</p>
-<p>This period of ${conceptLink("transformation-logic", "Academic Leadership")} laid the groundwork for a broader philosophical shift toward radical honesty and the development of the ${conceptLink("transformation-logic", "Inner Game")}.</p>`
+<p>Ryan served three prison terms, turning the time into a job site as a GED tutor.</p>`
     },
     {
       id: "authenticity-manifesto",
@@ -207,8 +105,7 @@ const CORE_NODES: Node[] = [
       themes: ["sovereignty", "manifesto", "street-ethics"],
       excerpt: "The philosophical mandate for radical honesty as a necessary survival mechanism.",
       content: `<h2>Narrative Sovereignty</h2>
-<p>In the concrete canyons of Southern California, authenticity is not a choice—it is a survival mechanism. If we don't write our story, the city paints it over.</p>
-<p>This document serves as the philosophical anchor against ${conceptLink("asymmetric-threat-model", "Networked Manipulation")}.</p>`
+<p>In the concrete canyons of Southern California, authenticity is a survival mechanism.</p>`
     },
     {
       id: "exploitation-cycle",
@@ -217,7 +114,7 @@ const CORE_NODES: Node[] = [
       themes: ["reconnaissance", "profiling", "cascade"],
       excerpt: "Deconstructing the three-stage feedback loop of psychological attrition.",
       content: `<h2>The Feedback Loop</h2>
-<p>A continuous cycle of reconnaissance, exploitation, and suppression. Triggering a predictable response to feed the Justification Engine, directly feeding into the ${conceptLink("tier-structure", "Command Hierarchy")}.</p>`
+<p>A continuous cycle of reconnaissance, exploitation, and suppression.</p>`
     },
     {
       id: "soft-probe",
@@ -226,7 +123,7 @@ const CORE_NODES: Node[] = [
       themes: ["recon", "boundaries", "psych-soft-spots"],
       excerpt: "Benign interactions designed to gather intelligence without alerting the target.",
       content: `<h2>Reconnaissance in the Gray</h2>
-<p>Psychological probes, often disguised as casual questions, collect data on psychological soft spots for future ${conceptLink("narrative-entrapment", "Entrapment")}.</p>`
+<p>Psychological probes, often disguised as casual questions, collect data on soft spots.</p>`
     },
     {
       id: "inner-game",
@@ -235,7 +132,7 @@ const CORE_NODES: Node[] = [
       themes: ["intuition", "gaslighting", "mental-warfare"],
       excerpt: "The final battlefield: weaponizing the target's emotions against them.",
       content: `<h2>Internal Sovereignty</h2>
-<p>The mind is the final battlespace. Orchestrators use Gaslighting to sow seeds of doubt. Survival requires transitioning from victim to analyst, a lesson learned in ${conceptLink("transformation-logic", "The Cage")}.</p>`
+<p>The mind is the final battlespace. Orchestrators use Gaslighting to sow seeds of doubt.</p>`
     },
     {
       id: "the-smear",
@@ -244,7 +141,7 @@ const CORE_NODES: Node[] = [
       themes: ["disinformation", "reputation", "sabotage"],
       excerpt: "The systematic destruction of public image through rumor dusting.",
       content: `<h2>Reputation Assassination</h2>
-<p>A pervasive dissemination of negative information. Components include Rumor Dusting and Folk Devil Construction, often facilitated by ${conceptLink("access-agent", "Unwitting Access Agents")}.</p>`
+<p>A pervasive dissemination of negative information.</p>`
     },
     {
       id: "still-here",
@@ -253,11 +150,7 @@ const CORE_NODES: Node[] = [
       themes: ["sonic-weapon", "memory", "rhythm"],
       excerpt: "A sonic signature designed to anchor the subject's narrative sovereignty.",
       content: `<h3>Verse 1</h3>
-<p>Concrete skin and a heart of lead,</p>
-<p>Remembering the words that the old head said.</p>
-<p>They can paint the wall, they can clear the lane,</p>
-<p>But they can't scrub the rhythm out of the rain.</p>
-<p>This is the anthem of ${conceptLink("narrative-sovereignty", "Sovereignty")}.</p>`
+<p>Concrete skin and a heart of lead, Remembering the words that the old head said.</p>`
     }
 ];
 
@@ -321,16 +214,11 @@ const CORE_LINKS: Edge[] = [
     { source: "soft-probe", target: "jess-forensic-analysis", type: "depicts", strength: 0.5 }
 ];
 
-/**
- * INGESTION ENGINE
- * Transforms VAULT entries into Graph Nodes and Edges automatically.
- */
 function processVault(): { nodes: Node[], links: Edge[] } {
   const nodes: Node[] = [];
   const links: Edge[] = [];
 
   VAULT.forEach(doc => {
-    // Cleaner slugging for deployment readiness
     const id = doc.title.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '-');
     nodes.push({
       id,
@@ -338,7 +226,8 @@ function processVault(): { nodes: Node[], links: Edge[] } {
       title: doc.title,
       themes: [...doc.themes, 'ingested'],
       excerpt: doc.excerpt,
-      content: doc.rawContent
+      content: doc.rawContent,
+      metadata: doc.metadata // Map metadata here
     });
 
     if (doc.linksTo) {
@@ -369,6 +258,7 @@ export const COLORS = {
   narrative: "#f5f5f5",
   technique: "#84cc16",
   era: "#a855f7",
+  analysis: "#e879f9",
   background: "#080808",
   connection: "rgba(249, 115, 22, 0.2)"
 };

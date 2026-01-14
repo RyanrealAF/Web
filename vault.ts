@@ -2,10 +2,11 @@
 import { IngestedDocument } from './types';
 
 /**
- * DEVELOPMENT VAULT
- * To add a new document:
- * 1. Add a new object to the VAULT array.
- * 2. The constants.tsx ingestion engine will automatically map this into the graph on next hot-reload.
+ * FORENSIC VAULT: PRIMARY INGESTION POINT
+ * 
+ * VS CODE TIP: Use 'vault-entry' snippet to add new documents here.
+ * Every entry here is automatically mapped into the D3 graph by the 
+ * constants.tsx ingestion engine.
  */
 export const VAULT: IngestedDocument[] = [
   {
@@ -45,4 +46,5 @@ export const VAULT: IngestedDocument[] = [
       The subject stops arguing with the distortion and starts documenting the frequency.</p>
     `
   }
+  // NEW ENTRIES START BELOW
 ];
