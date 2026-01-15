@@ -1,4 +1,4 @@
-import { GraphData, Node, Edge } from './types';
+import { GraphData, Node, Edge, NodeType } from './types';
 import { VAULT, FILES } from './vault';
 
 /**
@@ -281,5 +281,9 @@ export const COLORS = {
   analysis: "#e879f9",
   background: "#080808",
   connection: "rgba(249, 115, 22, 0.2)",
-  document: "#facc15"
+  document: "#facc15",
+  audio: "#06b6d4",     // Cyan (reusing song color)
+  image: "#a855f7",     // Purple
+  video: "#ef4444",     // Red
+  data: "#10b981"       // Emerald
 };
