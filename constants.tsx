@@ -250,7 +250,7 @@ function processFiles(): { nodes: Node[] } {
     FILES.forEach(file => {
       nodes.push({
         id: file.id,
-        type: 'theory',
+        type: file.type as NodeType,
         title: file.name,
         themes: file.tags,
         excerpt: file.description,

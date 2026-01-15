@@ -9,7 +9,7 @@
  * 3. Use 'conceptLink(id, text)' in content strings to enable semantic tooltips.
  */
 
-export type NodeType = 'song' | 'theory' | 'narrative' | 'technique' | 'era' | 'analysis';
+export type NodeType = 'song' | 'theory' | 'narrative' | 'technique' | 'era' | 'analysis' | 'document';
 
 export interface Concept {
   id: string; // Internal identifier for the tooltip system
