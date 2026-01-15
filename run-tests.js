@@ -4,7 +4,7 @@ import process from 'node:process';
 import { glob } from 'glob';
 
 async function runTests() {
-  const testFiles = ['example.test.js'];
+  const testFiles = await glob('**/*.test.js', { ignore: 'node_modules/**' });
 
   if (testFiles.length === 0) {
     console.log('No test files found.');
@@ -15,7 +15,21 @@ async function runTests() {
 
   const testStream = run({
     files: testFiles,
-    concurrency: true,
+  });
+
+  let failed = false;
+
+  testStream.on('test:fail', () => {
+      failed = true;
+  });
+
+  testStream.on('close', () => {
+      if(failed) {
+          console.error('\nTests failed!');
+          process.exit(1);
+      } else {
+          console.log('\nAll tests passed!');
+      }
   });
 
   testStream.compose(spec).pipe(process.stdout);
